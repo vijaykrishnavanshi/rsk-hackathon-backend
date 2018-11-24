@@ -75,7 +75,7 @@ router.route("/create").post(validate(validation.createMediaLink), (req, res) =>
 });
 
 /**
- * @api {post} /media-link/<mediaLinkId>/vote Update [POST]
+ * @api {post} /media-link/<mediaLinkId>/vote Vote [POST]
  * @apiGroup MediaLink
  * @apiDescription This api is to vote on mediaLink by the user.
  * @apiParam (param) {String} mediaLinkId ID of the mediaLink.
