@@ -194,7 +194,7 @@ router.route("/mediaLinks/:mediaLinkId").get(validate(validation.getMediaLink), 
 /**
  * @api {delete} /delete/<mediaLinkId> Delete MediaLink [DELETE]
  * @apiGroup MediaLink
- * @apiDescription This api is to update mediaLink by the user.
+ * @apiDescription This api is to delete mediaLink by the user.
  * @apiParam {String} mediaLinkId ID of the mediaLink.
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 201 OK

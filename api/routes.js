@@ -7,10 +7,8 @@
 const express = require("express");
 const app = express();
 
-const UserRoute = require("./user-module/user.route");
-const PostRoute = require("./post-module/post.route");
+const MediaLinkRoute = require("./media-link-module/mediaLink.route");
 
-app.use(UserRoute);
-app.use(PostRoute);
+app.use(MediaLinkRoute);
 
 module.exports = app;

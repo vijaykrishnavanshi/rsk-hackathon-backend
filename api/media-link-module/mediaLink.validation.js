@@ -37,6 +37,14 @@ const voteMediaLink = {
   }
 };
 
+
+const deleteMediaLink = {
+  options: strictChecking,
+  params: {
+    mediaLinkId: Joi.string().required()
+  }
+};
+
 const getMediaLink = {
   options: strictChecking,
   params: {
