@@ -15,7 +15,9 @@ _mediaLink.create = function(payloadData) {
       reject(new Error("Please pass link and title."));
     } else {
       const someDate = new Date();
-      payloadData.limitDate = new Date(someDate.getDate() + payloadData.limit);
+      payloadData.limitDate = new Date(
+        someDate.getDate() + payloadData.limit || 1
+      );
       const mediaLink = new MediaLink(payloadData);
       mediaLink
         .save()
@@ -43,13 +45,16 @@ _mediaLink.vote = function(params, payloadData) {
       MediaLink.vote(criteria, projection, option)
         .exec()
         .then(mediaLink => {
-          if(payloadData.vote == "YES") {
+          if (payloadData.vote == "YES") {
             mediaLink.forVote += 1;
-          } else if(payloadData.vote == "NO") {
+          } else if (payloadData.vote == "NO") {
             mediaLink.againstVote += 1;
           }
 
-          if (mediaLink.againstVote + mediaLink.forVote >= mediaLink.threshold) {
+          if (
+            mediaLink.againstVote + mediaLink.forVote >=
+            mediaLink.threshold
+          ) {
             mediaLink.state = "CONSENSUS";
             if (mediaLink.againstVote > mediaLink.forVote) {
               mediaLink.status = "VALID";
@@ -83,8 +88,7 @@ _mediaLink.get = function(params) {
       const option = {
         lean: true
       };
-      return MediaLink.findOne(criteria, projection, option)
-        .exec();
+      return MediaLink.findOne(criteria, projection, option).exec();
     }
   });
 };

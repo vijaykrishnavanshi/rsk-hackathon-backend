@@ -21,9 +21,12 @@ const createMediaLink = {
   body: {
     link: Joi.string().required(),
     title: Joi.string().required(),
-    typeOfContent: Joi.string().valid(contentType).required(),
+    typeOfContent: Joi.string()
+      .valid(contentType)
+      .required(),
     platform: Joi.string().required(),
-    threshHold: Joi.number().optional()
+    threshHold: Joi.number().optional(),
+    limit: Joi.number().optional()
   }
 };
 
@@ -33,10 +36,11 @@ const voteMediaLink = {
     mediaLinkId: Joi.string().required()
   },
   body: {
-    vote: Joi.string().valid(option).required()
+    vote: Joi.string()
+      .valid(option)
+      .required()
   }
 };
-
 
 const deleteMediaLink = {
   options: strictChecking,

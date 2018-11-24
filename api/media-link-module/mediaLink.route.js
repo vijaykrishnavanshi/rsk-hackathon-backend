@@ -45,34 +45,36 @@ const { logger } = require("../../utils");
  *     }
  */
 
-router.route("/create").post(validate(validation.createMediaLink), (req, res) => {
-  // send only the data that is required by the controller
-  const response = {
-    success: false,
-    message: "",
-    data: {}
-  };
-  logger.info(req.body);
-  MediaLinkController.create(req.body)
-    .then(mediaLink => {
-      if (!mediaLink) {
+router
+  .route("/create")
+  .post(validate(validation.createMediaLink), (req, res) => {
+    // send only the data that is required by the controller
+    const response = {
+      success: false,
+      message: "",
+      data: {}
+    };
+    logger.info(req.body);
+    MediaLinkController.create(req.body)
+      .then(mediaLink => {
+        if (!mediaLink) {
+          response.success = false;
+          response.message = "Something went wrong";
+          return res.status(500).json(response);
+        } else {
+          response.success = true;
+          response.message = "Success";
+          response.data = mediaLink;
+          return res.status(201).json(response);
+        }
+      })
+      .catch(err => {
+        logger.error(err);
         response.success = false;
-        response.message = "Something went wrong";
-        return res.status(500).json(response);
-      } else {
-        response.success = true;
-        response.message = "Success";
-        response.data = mediaLink;
-        return res.status(201).json(response);
-      }
-    })
-    .catch(err => {
-      logger.error(err);
-      response.success = false;
-      response.message = err.message;
-      return res.status(403).json(response);
-    });
-});
+        response.message = err.message;
+        return res.status(403).json(response);
+      });
+  });
 
 /**
  * @api {post} /media-link/<mediaLinkId>/vote Vote [POST]
@@ -163,33 +165,35 @@ router
  *     }
  */
 
-router.route("/mediaLinks/:mediaLinkId").get(validate(validation.getMediaLink), (req, res) => {
-  // send only the data that is required by the controller
-  const response = {
-    success: false,
-    message: "",
-    data: {}
-  };
-  MediaLinkController.get(req.params)
-    .then(mediaLink => {
-      if (!mediaLink) {
+router
+  .route("/mediaLinks/:mediaLinkId")
+  .get(validate(validation.getMediaLink), (req, res) => {
+    // send only the data that is required by the controller
+    const response = {
+      success: false,
+      message: "",
+      data: {}
+    };
+    MediaLinkController.get(req.params)
+      .then(mediaLink => {
+        if (!mediaLink) {
+          response.success = false;
+          response.message = "Something went wrong";
+          return res.status(500).json(response);
+        } else {
+          response.success = true;
+          response.message = "Success";
+          response.data = mediaLink;
+          return res.status(201).json(response);
+        }
+      })
+      .catch(err => {
+        logger.error(err);
         response.success = false;
-        response.message = "Something went wrong";
-        return res.status(500).json(response);
-      } else {
-        response.success = true;
-        response.message = "Success";
-        response.data = mediaLink;
-        return res.status(201).json(response);
-      }
-    })
-    .catch(err => {
-      logger.error(err);
-      response.success = false;
-      response.message = err.message;
-      return res.status(403).json(response);
-    });
-});
+        response.message = err.message;
+        return res.status(403).json(response);
+      });
+  });
 
 /**
  * @api {delete} /delete/<mediaLinkId> Delete MediaLink [DELETE]
@@ -289,35 +293,37 @@ router
  *     }
  */
 
-router.route("/media-links").get(validate(validation.getMediaLinkList), (req, res) => {
-  // send only the data that is required by the controller
-  const response = {
-    success: false,
-    message: "",
-    data: {}
-  };
-  logger.info(req.query);
-  MediaLinkController.getList(req.query)
-    .then(mediaLinks => {
-      if (!mediaLinks) {
+router
+  .route("/media-links")
+  .get(validate(validation.getMediaLinkList), (req, res) => {
+    // send only the data that is required by the controller
+    const response = {
+      success: false,
+      message: "",
+      data: {}
+    };
+    logger.info(req.query);
+    MediaLinkController.getList(req.query)
+      .then(mediaLinks => {
+        if (!mediaLinks) {
+          response.success = false;
+          response.message = "Something went wrong";
+          return res.status(500).json(response);
+        } else {
+          response.success = true;
+          response.message = "Success";
+          response.data = {
+            mediaLinkList: mediaLinks
+          };
+          return res.status(201).json(response);
+        }
+      })
+      .catch(err => {
+        logger.error(err);
         response.success = false;
-        response.message = "Something went wrong";
-        return res.status(500).json(response);
-      } else {
-        response.success = true;
-        response.message = "Success";
-        response.data = {
-          mediaLinkList: mediaLinks
-        };
-        return res.status(201).json(response);
-      }
-    })
-    .catch(err => {
-      logger.error(err);
-      response.success = false;
-      response.message = err.message;
-      return res.status(403).json(response);
-    });
-});
+        response.message = err.message;
+        return res.status(403).json(response);
+      });
+  });
 
 module.exports = router;
