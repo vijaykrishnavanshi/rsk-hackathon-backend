@@ -4,7 +4,7 @@ define({ "api": [
     "url": "/delete/<mediaLinkId>",
     "title": "Delete MediaLink [DELETE]",
     "group": "MediaLink",
-    "description": "<p>This api is to update mediaLink by the user.</p>",
+    "description": "<p>This api is to delete mediaLink by the user.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
