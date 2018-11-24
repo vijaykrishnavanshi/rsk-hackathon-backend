@@ -14,9 +14,9 @@ _mediaLink.create = function(payloadData) {
     if (!payloadData.link || !payloadData.title) {
       reject(new Error("Please pass link and title."));
     } else {
-      const someDate = new Date();
+      payloadData.limit = payloadData.limit || 1;
       payloadData.limitDate = new Date(
-        someDate.getDate() + payloadData.limit || 1
+        Date.now() + payloadData.limit * 1000 * 60 * 60 * 24
       );
       const mediaLink = new MediaLink(payloadData);
       mediaLink
