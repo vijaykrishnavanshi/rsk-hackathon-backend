@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const contentType = ["CHILD_ABUSE", "FAKE_NEWS", "PORNOGRAPHIC", "POLICY"];
-const state = ["VALID", "INVALID"];
+const state = ["VALID", "INVALID", "ONGOING"];
 const status = ["VOTING", "CONSENSUS", "NO_CONSENSUS"];
 const MediaLinkSchema = new Schema({
   link: { type: String, required: true, unique: true },
@@ -18,7 +18,7 @@ const MediaLinkSchema = new Schema({
   limitDate: { type: Date, required: true },
 
   // system generated
-  state: { type: String, enum: state, required: true, default: "" },
+  state: { type: String, enum: state, required: true, default: "ONGOING" },
   status: { type: String, enum: status, required: true, default: "VOTING" },
   forVotes: { type: Number, default: 0 },
   againstVotes: { type: Number, default: 0 },
